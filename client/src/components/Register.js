@@ -7,7 +7,7 @@ const Register = () => {
             <h1>Sign Up</h1>
             <form action="">
                 <div className="child">
-                    <label htmlFor="">Email Adderess</label>
+                    <label htmlFor="">Email Address</label>
                     <input type="email" placeholder="Enter your email address" />
                 </div>
                 <div className="child">
@@ -30,7 +30,7 @@ const Register = () => {
                     <input type="password" placeholder="confirm your password" />
                 </div>
                 <div>
-                    <button>Sign Up</button>
+                    <button>Submit</button>
                 </div>
                 
                 <div>

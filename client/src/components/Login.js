@@ -7,7 +7,7 @@ const Login = () => {
             <h1>Sign In</h1>
             <form action="">
                 <div className="child">
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="email">Email Address</label>
                     <input type="email" placeholder="Enter your email" />
                 </div>
 
@@ -21,7 +21,7 @@ const Login = () => {
                 </div>
 
                 <div>
-                    <p>Don't Have an Account yet? <Link to="/register">Register</Link></p>
+                    <p>Don't Have an Account yet? <Link to="/register">Register!</Link></p>
                 </div>                
             </form>
         </div>

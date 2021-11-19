@@ -47,6 +47,7 @@ form button {
   color: white;
   border-radius: 1rem;
   margin-bottom: 20px;
+  padding: 10px;
 }
 form a {
   text-decoration: none;
