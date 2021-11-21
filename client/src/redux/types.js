@@ -3,3 +3,8 @@ export const Register = {
     Success: "REGISTER_SUCCESS",
     Fail: "REGISTER_FAIL"
 }
+export const Login = {
+    Request: "LOGIN_REQUEST",
+    Success: "LOGIN_SUCCESS",
+    Fail: "LOGIN_FAIL"
+}
