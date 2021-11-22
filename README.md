@@ -1,4 +1,10 @@
-# user-auth-mssql
-use ms sql server to create a users endpoints for adding(signup), login, updating, getting and deleting users from the db using node.js and express.
+# User-System
+A user system created using:
+- Node.js and Express for the backend.
+- MS SQL server for the database.
+- React.js for the frontend.
+- Redux for state management in the frontend.
+- Bcrypt to hash password before storing it to the database and to decrypt it when signing in.
+- Json web tokens(JWT) for authorization ie, generate a token when a user signs in so that they can perform private functionalities like updating their profile and also for viewing private routes.
 
-We also use bcrypt to hash the password before storing i in the database.
+Users are assigned projects which also contain tasks.
