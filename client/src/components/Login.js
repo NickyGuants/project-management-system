@@ -31,17 +31,17 @@ const Login = () => {
     return (
         <div className="form">
             <h1>Sign In</h1>
-            {error && <h1>{error}</h1>}
-            {loading && <h1>Loading</h1>}
+            {error && <h2>{error}</h2>}
+            {loading && <h2>Loading</h2>}
             <form onSubmit={handleSubmit}>
                 <div className="child">
                     <label htmlFor="email">Email Address</label>
-                    <input type="email" placeholder="Enter your email" value={ email} onChange={(e) =>setEmail(e.target.value)} />
+                    <input type="email" placeholder="Enter your email" value={ email} onChange={(e) =>setEmail(e.target.value)} required />
                 </div>
 
                 <div className="child">
                     <label htmlFor="password">Password</label>
-                    <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
 
                 <div>
