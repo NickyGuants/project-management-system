@@ -31,13 +31,14 @@ const Register = () => {
         } else {
           dispatch(register(username,name, email, password))
         }
+
       }
 
     return (
         <div className="form">
             <h1>Sign Up</h1>
-            {message && <h1>{ message }</h1>}
-            {error && <h1>{ error.message }</h1>}
+            {message && <h2>{ message }</h2>}
+            {error && <h2>{ error }</h2>}
             <form onSubmit={handleSubmit}>
                 <div className="child">
                     <label htmlFor="username">Username</label>
