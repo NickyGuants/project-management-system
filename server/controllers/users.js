@@ -20,6 +20,10 @@ exports.getUsers = async (req, res) => {
 
 exports.addUser = async (req, res) => {
     try {
+        let users = `select * from users`;
+        let pool = await sql.connect(config);
+        let results = await pool.request().query(users);
+        
         //regex to check password strength
         const capsAndNumber = new RegExp(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
@@ -27,18 +31,19 @@ exports.addUser = async (req, res) => {
         const specialCharacters = new RegExp("^(?=.*[!@#$%^&*])");
         //Get data from the request body
         const { email, username, password, name } = req.body;
+        const user = results.recordset.find((user) => user.email === email);
 
          //ensure the user has entered an email address
         if (!email) {
-            res.status(401).send("Fill in your email please.");
+            res.status(401).send({message: "Fill in your email please." })
         }
         //ensure the user has entered a username
         else if (!username) {
-            res.status(401).send("fill in your username");
+            res.status(401).send({message: "fill in your username"});
         }
         //ensure the user has entered a password
         else if (!password) {
-            res.status(401).send("fill in your password");
+            res.status(401).send({message: "fill in your password"});
         }
     
         //Check that the password is eight characters long
@@ -46,7 +51,7 @@ exports.addUser = async (req, res) => {
             res
             .status(401)
             .send(
-                "Password must be atleast 8 characters long"
+                { message: "Password must be atleast 8 characters long" }
             );
         }
         //Check that the password contain special characters
@@ -54,7 +59,7 @@ exports.addUser = async (req, res) => {
             res
             .status(401)
             .send(
-                "Password must contain special characters"
+                { message: "Password must contain special characters" }
             );
         }
         //Check that the password contain small letters, caps, and numbers
@@ -62,8 +67,11 @@ exports.addUser = async (req, res) => {
             res
                 .status(401)
                 .send(
-                    "Password must have small letters, caps and numbers  "
+                    { message: "Password must have small letters, caps and numbers" }
                 );
+        } else if (user) {
+            res.status(401)
+            .send({ message: "That email is already taken. Please use a different email" });
         }
     
         //Use bcrypt to hash the password and add the user to the users array
@@ -73,11 +81,11 @@ exports.addUser = async (req, res) => {
             let pool = await sql.connect(config);
             let query = `INSERT INTO users(username,password,name,email)VALUES('${username}','${hashedPassword}','${name}','${email}')`;
             await pool.request().query(query);
-            res.status(201).send("user added successfully");
+            res.status(201).send({ user, message: "user added successfully" });
         }
         
     } catch (error) {
-        console.log(error);
+        res.status(401).send(error.message)
     }
 }
 //@Login
@@ -91,37 +99,24 @@ exports.login = async (req, res) => {
 
         const user = results.recordset.find((user) => user.email === email);
         if (!user) {
-            return res.status(401).json({ message: "No such user exists" });
+            return res.status(401).send({ "message": "No such user exists" });
           } else {
             bcrypt.compare(password, user.password, (err, result) => {
               if (!result) {
                 return res.status(401).json({ message: "wrong password" });
               }
               jwt.sign({ email: user.email, username: user.username, password: user.password }, 'secretkey', (err, token) => {
-                return res.status(200).json({
-                  message: `${user.username} has been logged in successfully`,
-                  token
+                  return res.status(200).json({
+                    user,
+                    message: `${user.username} has been logged in successfully`,
+                    token
+
                 });
               });
             });
           }
     } catch (error) {
         console.log(error)
-    }
-}
-
-
-//@Add a project to a user using an id
-exports.addProject = async (req, res) => {
-    try {
-        let id = parseInt(req.params.id);
-        const { project } = req.body;
-        let pool = await sql.connect(config);
-        let query = `update users set project='${project}' where id=${id}`;
-        await pool.request().query(query);
-        res.status(201).send("project added");
-    } catch (error) {
-        console.log(error);
     }
 }
 
