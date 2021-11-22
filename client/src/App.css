@@ -1,4 +1,5 @@
 header {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -41,6 +42,10 @@ header h1 {
 .form h1 {
   text-align: center;
 }
+.form h2 {
+  text-align: center;
+  color: red;
+}
 .child {
   display: flex;
   flex-direction: row;
@@ -65,4 +70,34 @@ form button {
 form a {
   text-decoration: none;
   color: blue;
+}
+
+@media only screen and (max-width: 580px) {
+  header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .branding {
+    margin-left: 5px;
+  }
+  header .user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
+    margin-right: 5px;
+    font-size: 25px;
+  }
+  header h1 {
+    font-size: 28px;
+  }
+  .form {
+    width: 90%;
+  }
+  header a {
+    font-size: 25px;
+  }
 }
