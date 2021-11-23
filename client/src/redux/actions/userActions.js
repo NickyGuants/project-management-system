@@ -1,4 +1,4 @@
-import { Login, Register } from "../types";
+import { Login, Register, USER_LOGOUT} from "../types";
 import axios from 'axios'
 
 export const login = (email, password) => async (dispatch) => {
@@ -20,7 +20,6 @@ export const login = (email, password) => async (dispatch) => {
             payload: data
         })
     } catch (error) {
-        console.log(error.response.data.message)
         dispatch({
             type: Login.Fail,
             payload: error.response && error.response.data.message ? error.response.data.message: error.message
@@ -41,17 +40,21 @@ export const register = ( username, name, email, password ) => async (dispatch) 
         }
 
         const { data } = await axios.post('users/signup', { username, name, email, password }, config)
-        console.log(data);
         
         dispatch({
             type: Register.Success,
             payload: data
         })
     } catch (error) {
-        console.log(error.response.data.message)
         dispatch({
             type: Register.Fail,
             payload: error.response && error.response.data.message ? error.response.data.message: error.message
         })
     }
+}
+
+export const logout = () => async (dispatch) => {
+    dispatch({
+        type: USER_LOGOUT
+    })
 }
