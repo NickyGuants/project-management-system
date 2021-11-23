@@ -8,3 +8,4 @@ export const Login = {
     Success: "LOGIN_SUCCESS",
     Fail: "LOGIN_FAIL"
 }
+export const USER_LOGOUT = "USER_LOGOUT"
