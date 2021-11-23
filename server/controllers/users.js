@@ -1,6 +1,7 @@
 const sql = require('mssql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const config = require('../config/db');
 
@@ -105,7 +106,7 @@ exports.login = async (req, res) => {
               if (!result) {
                 return res.status(401).json({ message: "wrong password" });
               }
-              jwt.sign({ email: user.email, username: user.username, password: user.password }, 'secretkey', (err, token) => {
+              jwt.sign({ email: user.email, username: user.username, password: user.password }, process.env.SECRET_KEY, (err, token) => {
                   return res.status(200).json({
                     user,
                     message: `${user.username} has been logged in successfully`,

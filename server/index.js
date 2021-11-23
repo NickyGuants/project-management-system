@@ -2,6 +2,7 @@ const sql = require('mssql');
 const express = require('express');
 const config = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const protect = require('./middleware/authMiddleware')
 
 const app = express();
 
