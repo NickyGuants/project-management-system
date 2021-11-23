@@ -1,4 +1,4 @@
-import { Login, Register } from '../types'
+import { Login, Register, USER_LOGOUT } from '../types'
 
 export const userLoginReducer = (state = {}, action) => {
     switch (action.type) {
@@ -15,6 +15,8 @@ export const userLoginReducer = (state = {}, action) => {
                 loading: false,
                 error: action.payload
             }
+        case USER_LOGOUT:
+            return {}
         default:
             return state
     }
