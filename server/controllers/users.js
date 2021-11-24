@@ -81,8 +81,12 @@ exports.addUser = async (req, res) => {
             const hashedPassword = await bcrypt.hash(password, 10);
             let pool = await sql.connect(config);
             let query = `INSERT INTO users(username,password,name,email)VALUES('${username}','${hashedPassword}','${name}','${email}')`;
-            await pool.request().query(query);
-            res.status(201).send({ user, message: "user added successfully" });
+            pool.request().query(query, (error, recordset) => {
+                if (error)
+                    console.log(recordset)
+                    res.status(500).send(error.message)
+                res.status(201).send({ user, message: "user added successfully" });
+            });
         }
         
     } catch (error) {
