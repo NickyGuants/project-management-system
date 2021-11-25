@@ -64,4 +64,23 @@ exports.addProject = async (req, res) => {
     }
 }
 
+exports.updateProject = async (req, res) => {
+    try {
+        const { project_name, project_description } = req.body
 
+        let id = parseInt(req.params.id);
+        let updateProject = `Update projects set project_name='${project_name}', project_description='${project_description}' where project_id=${id}`;
+        let pool = await sql.connect(config);
+
+        pool.request().query(updateProject, (err, results) => {
+            if (err) {
+                console.log(err)
+                return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
+            }
+            res.status(201).send("project details updated successfully");
+        })
+        
+    } catch (error) {
+        res.send(500).send(error.message)
+    }
+}
