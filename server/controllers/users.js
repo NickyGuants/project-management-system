@@ -7,7 +7,7 @@ const config = require('../config/db');
 
 exports.getUsers = async (req, res) => {
     try {
-        let query = await `select * from users`;
+        let query = `select * from users`;
         let pool = await sql.connect(config);
         let results = await pool.request().query(query);
         if (results.recordset.length === 0) {
@@ -82,9 +82,10 @@ exports.addUser = async (req, res) => {
             let pool = await sql.connect(config);
             let query = `INSERT INTO users(username,password,name,email)VALUES('${username}','${hashedPassword}','${name}','${email}')`;
             pool.request().query(query, (error, recordset) => {
-                if (error)
+                if (error) {
                     console.log(recordset)
                     res.status(500).send(error.message)
+                }   
                 res.status(201).send({ user, message: "user added successfully" });
             });
         }
@@ -133,7 +134,7 @@ exports.getSingleUser = async (req, res) => {
         let query = `select * from users where id=${id}`;
         results = await pool.request().query(query);
         if(results.recordset.length ===0)
-            res.status(406).send("No user with that id exists in the databse");
+            res.status(406).send("No user with that id exists in the database");
         else {
             res.status(201).send(results.recordset)
         }
