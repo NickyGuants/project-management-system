@@ -2,6 +2,7 @@ const sql = require('mssql');
 const express = require('express');
 const config = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const projectRoutes = require('./routes/projectRouters');
 const protect = require('./middleware/authMiddleware')
 
 const app = express();
@@ -16,6 +17,7 @@ sql.connect(config).then(pool => {
 
 
 app.use('/users', userRoutes);
+app.use('/projects', projectRoutes);
 
 
 
