@@ -46,7 +46,6 @@ exports.getSingleProject = async (req, res) => {
     }
 }
 
-
 exports.addProject = async (req, res) => {
     try {
         const { project_name, project_description } = req.body;
@@ -66,19 +65,27 @@ exports.addProject = async (req, res) => {
 
 exports.updateProject = async (req, res) => {
     try {
-        const { project_name, project_description } = req.body
-
         let id = parseInt(req.params.id);
-        let updateProject = `Update projects set project_name='${project_name}', project_description='${project_description}' where project_id=${id}`;
         let pool = await sql.connect(config);
+        let query = `select * from projects where project_id=${id}`;
+        let project = (await pool.request().query(query)).recordset[0]
+        
+        if (project) {
+            let updated_project_name = req.body.project_name || project.project_name
+            let updated_project_description = req.body.project_description || project.project_description
+                    
+            let updateProject = `Update projects set project_name='${updated_project_name}', project_description='${updated_project_description}' where project_id=${id}`;
 
-        pool.request().query(updateProject, (err, results) => {
-            if (err) {
-                console.log(err)
-                return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
-            }
-            res.status(201).send({ message: "project details updated successfully" });
-        })
+            pool.request().query(updateProject, (err, results) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
+                }
+                res.status(201).send({ message: "project details updated successfully" });
+            })
+        } else {
+            res.status(500).send({message: "Project does not exist"})
+        }
         
     } catch (error) {
         res.send(500).send(error.message)
@@ -91,9 +98,8 @@ exports.deleteProject = async (req, res) => {
         let deleteProject = `delete from projects where project_id=${id}`
         let pool = await sql.connect(config);
         pool.request().query(deleteProject, (err, results) => {
-            console.log(results);
             if (err) {
-                
+                console.log(err);
                 res.status(500).send({message: "Oh, sorry we could not delete that project for some strange reason"})
             }
             // if (results.recordset === undefined) {
