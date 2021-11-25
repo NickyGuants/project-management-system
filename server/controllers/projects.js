@@ -47,6 +47,21 @@ exports.getSingleProject = async (req, res) => {
 }
 
 
+exports.addProject = async (req, res) => {
+    try {
+        const { project_name, project_description } = req.body;
+        let insertProject = `Insert into projects(project_name, project_description) Values('${project_name}', '${project_description}')`
+        let pool = await sql.connect(config);
+        pool.request().query(insertProject, (err, results) => {
+            if (err) {
+                return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
+            }
+            res.status(201).send({ message: "project added successfully" });
+        })
 
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
 
 
