@@ -3,7 +3,7 @@ import './users.css'
 
 const Users = () => {
     return (
-        <div>
+        <div className="users">
             <h1>Users</h1>
         </div>
     )
