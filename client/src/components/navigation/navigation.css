@@ -1,0 +1,12 @@
+.nav {
+  width: 20%;
+  height: calc(100vh- 100px);
+  background-color: rgb(43, 43, 204);
+  position: sticky;
+  top: 100px;
+  /* height: 100vh-; */
+}
+.nav a {
+  text-decoration: none;
+  color: white;
+}
