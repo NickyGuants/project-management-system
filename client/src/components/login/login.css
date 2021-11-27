@@ -1,0 +1,45 @@
+.form {
+  box-shadow: 0px 1px 8px 2px;
+  width: 40%;
+  margin: 0 auto;
+  height: max-content;
+}
+.form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.form h1 {
+  text-align: center;
+}
+.form h2 {
+  text-align: center;
+  color: red;
+}
+.child {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin: 15px;
+}
+.child label {
+  width: 30%;
+}
+.child input {
+  width: 70%;
+  height: 30px;
+}
+form button {
+  background-color: blue;
+  color: white;
+  border-radius: 1rem;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+form a {
+  text-decoration: none;
+  color: blue;
+}
