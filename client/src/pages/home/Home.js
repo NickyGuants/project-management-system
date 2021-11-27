@@ -1,4 +1,5 @@
 import React from 'react'
+import './home.css'
 import { useSelector } from 'react-redux'
 
 const Home = () => {
