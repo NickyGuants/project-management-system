@@ -1,5 +1,6 @@
 .nav {
-  width: 20%;
+  flex: 1;
+  /* width: 20%; */
   height: calc(100vh- 100px);
   background-color: rgb(43, 43, 204);
   position: sticky;
