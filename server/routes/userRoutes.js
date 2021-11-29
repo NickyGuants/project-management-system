@@ -9,7 +9,7 @@ router.route('/:id').get(getSingleUser);
 router.route('/signup').post(addUser);
 router.route('/login').post(login);
 
-router.route('/:id').put(updateUser);
-router.route('/:id').delete(deleteUser);
+router.route('/update/:id').put(updateUser);
+router.route('/delete/:id').delete(deleteUser);
 
 module.exports = router
