@@ -7,9 +7,9 @@ const config = require('../config/db');
 
 exports.getUsers = async (req, res) => {
     try {
-        let query = `select * from users`;
+        //let query = `select * from users`;
         let pool = await sql.connect(config);
-        let results = await pool.request().query(query);
+        let results = await pool.request().execute('getAllUsers');
         if (results.recordset.length === 0) {
             return res.status(406).send("No users in the database");
         }
@@ -21,9 +21,9 @@ exports.getUsers = async (req, res) => {
 
 exports.addUser = async (req, res) => {
     try {
-        let users = `select * from users`;
+        //let users = `select * from users`;
         let pool = await sql.connect(config);
-        let results = await pool.request().query(users);
+        let results = await pool.request().execute('getAllUsers');
         
         //regex to check password strength
         const capsAndNumber = new RegExp(
@@ -80,10 +80,15 @@ exports.addUser = async (req, res) => {
             //hash the received password
             const hashedPassword = await bcrypt.hash(password, 10);
             let pool = await sql.connect(config);
-            let query = `INSERT INTO users(username,password,name,email)VALUES('${username}','${hashedPassword}','${name}','${email}')`;
-            pool.request().query(query, (error, recordset) => {
+            //let query = `INSERT INTO users(username,password,name,email)VALUES('${username}','${hashedPassword}','${name}','${email}')`;
+            pool.request()
+                .input('username', sql.VarChar, username)
+                .input('name', sql.VarChar, name)
+                .input('email', sql.VarChar, email)
+                .input('password', sql.VarChar, hashedPassword)
+                .execute('insertUser', (error, recordset) => {
                 if (error) {
-                    console.log(recordset)
+                    console.log(error)
                     res.status(500).send(error.message)
                 }   
                 res.status(201).send({ user, message: "user added successfully" });
@@ -99,9 +104,9 @@ exports.addUser = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        let users = `select * from users`;
+        //let users = `select * from users`;
         let pool = await sql.connect(config);
-        let results = await pool.request().query(users);
+        let results = await pool.request().execute('getAllUsers');
 
         const user = results.recordset.find((user) => user.email === email);
         if (!user) {
@@ -131,29 +136,47 @@ exports.getSingleUser = async (req, res) => {
     try {
         let id = parseInt(req.params.id);
         let pool = await sql.connect(config);
-        let query = `select * from users where id=${id}`;
-        results = await pool.request().query(query);
-        if(results.recordset.length ===0)
-            res.status(406).send("No user with that id exists in the database");
-        else {
-            res.status(201).send(results.recordset)
-        }
+        //let query = `select * from users where id=${id}`;
+        pool.request().input('id', sql.Int, id).execute('getSingleUser',
+            (err, results) => {
+                if (err) {
+                    res.status(500).send({message: "An error occurred"})
+                }
+                if(results.recordset.length ===0)
+                res.status(406).send("No user with that id exists in the database");
+                else {
+                    res.status(201).send(results.recordset[0])
+                }
+        });
+        
     } catch (error) {
         console.log(error)
     }
 }
 
 //@update a user infomartion
+//Todo Check that a user exists before updating their details
+//Todo Update only details supplied by the user and leave the rest as they are.
+//refer from the projects
 exports.updateUser = async(req, res) =>{
     try {
         let id = parseInt(req.params.id);
         const { username, email } = req.body;
         let pool = await sql.connect(config);
-        let updateQuery = `Update users set username='${username}', email='${email}' where id=${id}`;
-        await pool.request().query(updateQuery);
-        res.status(201).send("user details updated");
+        //let updateQuery = `Update users set username='${username}', email='${email}' where id=${id}`;
+        pool.request().input('id', sql.Int, id)
+            .input('email', sql.VarChar, email)
+            .input('username', sql.VarChar, username)
+            .execute('updateUser', (error, results) => {
+            if (error) {
+                res.status(500).send({message: "An error occurred"})
+            }
+            res.status(201).send("user details updated");
+        });
+        
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        res.status(500).send(error.message)
     }
 }
 
@@ -162,14 +185,18 @@ exports.deleteUser = async (req, res) => {
     try {
         let id = parseInt(req.params.id);
         let pool = await sql.connect(config);
-        let users = `select id from users where id=${id}`;
-        let results = await pool.request().query(users)
-        let deleteQuery = `delete from users where id =${id}`;
-        await pool.request().query(deleteQuery);
-        if (results.recordset.length ===0) {
-            return res.send(`No user with id ${id} exists`)
-        }
-        res.status(201).send(`user with id ${id} deleted`);
+        pool.request().input('id', sql.Int, id).execute('deleteUser', (err, results) => {
+            if (err) {
+                res.send({message: "An error occured"})
+            }
+            /*if (results.recordset.length === 0) {
+                return res.send(`No user with id ${id} exists`)
+            }*/
+            res.status(201).send(`user with id ${id} deleted`);
+        })
+        //let deleteQuery = `delete from users where id =${id}`;
+        //await pool.request().query(deleteQuery);
+        
     } catch (error) {
         console.log(error);
     }
