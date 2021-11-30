@@ -70,10 +70,10 @@ exports.addUser = async (req, res) => {
                 .send(
                     { message: "Password must have small letters, caps and numbers" }
                 );
-        } else if (user) {
+        } else if (user && user.is_deleted ===0) {
             res.status(401)
             .send({ message: "That email is already taken. Please use a different email" });
-        }
+        } 
     
         //Use bcrypt to hash the password and add the user to the users array
          else {
@@ -197,9 +197,6 @@ exports.deleteUser = async (req, res) => {
             
             if (err) {
                 res.send({message: "An error occured"})
-            }
-            if (results.recordset === undefined) {
-                return res.send(`No user with id ${id} exists`)
             }
             res.status(201).send(`user with id ${id} has been deleted`);
         })
