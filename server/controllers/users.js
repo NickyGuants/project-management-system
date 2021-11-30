@@ -88,7 +88,6 @@ exports.addUser = async (req, res) => {
                 .input('password', sql.VarChar, hashedPassword)
                 .execute('insertUser', (error, recordset) => {
                 if (error) {
-                    console.log(error)
                     res.status(500).send(error.message)
                 }   
                 res.status(201).send({ user, message: "user added successfully" });
@@ -127,7 +126,7 @@ exports.login = async (req, res) => {
             });
           }
     } catch (error) {
-        console.log(error)
+        res.status(401).send(error.message)
     }
 }
 
@@ -150,32 +149,41 @@ exports.getSingleUser = async (req, res) => {
         });
         
     } catch (error) {
-        console.log(error)
+        res.status(401).send(error.message)
     }
 }
 
 //@update a user infomartion
-//Todo Check that a user exists before updating their details
-//Todo Update only details supplied by the user and leave the rest as they are.
-//refer from the projects
 exports.updateUser = async(req, res) =>{
     try {
         let id = parseInt(req.params.id);
-        const { username, email } = req.body;
+        //const { username, email, name } = req.body;
         let pool = await sql.connect(config);
+        let user = (await pool.request().input('id', sql.Int, id).execute('getSingleUser')).recordset[0]
         //let updateQuery = `Update users set username='${username}', email='${email}' where id=${id}`;
-        pool.request().input('id', sql.Int, id)
-            .input('email', sql.VarChar, email)
-            .input('username', sql.VarChar, username)
-            .execute('updateUser', (error, results) => {
-            if (error) {
-                res.status(500).send({message: "An error occurred"})
-            }
-            res.status(201).send("user details updated");
-        });
+        if (user === undefined) {
+            res.send(`No user with id ${id} exists`)
+        }
+        if (user) {
+            let updated_name = req.body.name || user.name
+            let updated_username = req.body.username || user.username
+            let updated_email = req.body.email || user.email
+
+            pool.request()
+                .input('id', sql.Int, id)
+                .input('email', sql.VarChar, updated_email)
+                .input('username', sql.VarChar, updated_username)
+                .input('name', sql.VarChar, updated_name)
+                .execute('updateUser', (error, results) => {
+                    if (error) {
+                        console.log(error)
+                        res.status(500).send({message: "An error occurred"})
+                    }
+                    res.status(201).send({ message: "user details updated" });
+            })
+        }
         
     } catch (error) {
-        console.log(error)
         res.status(500).send(error.message)
     }
 }
@@ -186,18 +194,17 @@ exports.deleteUser = async (req, res) => {
         let id = parseInt(req.params.id);
         let pool = await sql.connect(config);
         pool.request().input('id', sql.Int, id).execute('deleteUser', (err, results) => {
+            
             if (err) {
                 res.send({message: "An error occured"})
             }
-            /*if (results.recordset.length === 0) {
+            if (results.recordset === undefined) {
                 return res.send(`No user with id ${id} exists`)
-            }*/
-            res.status(201).send(`user with id ${id} deleted`);
+            }
+            res.status(201).send(`user with id ${id} has been deleted`);
         })
-        //let deleteQuery = `delete from users where id =${id}`;
-        //await pool.request().query(deleteQuery);
         
     } catch (error) {
-        console.log(error);
+        res.status(401).send(error.message)
     }
 }
