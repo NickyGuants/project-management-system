@@ -1,8 +1,8 @@
-CREATE PROCEDURE deleteUser(@id INT)
+ALTER PROCEDURE deleteUser(@id INT)
 As
 BEGIN
 
-    delete from users where id =@id
+    Update users set is_deleted=1 where id=@id
 
 END
 GO
