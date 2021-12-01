@@ -22,17 +22,18 @@ exports.getUsers = async (req, res) => {
 exports.addUser = async (req, res) => {
     try {
         //let users = `select * from users`;
-        let pool = await sql.connect(config);
-        let results = await pool.request().execute('getAllUsers');
         
         //regex to check password strength
         const capsAndNumber = new RegExp(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
         const numberOfCharacters = new RegExp("^(?=.{8,})");
         const specialCharacters = new RegExp("^(?=.*[!@#$%^&*])");
+
         //Get data from the request body
         const { email, username, password, name } = req.body;
-        const user = results.recordset.find((user) => user.email === email);
+        let pool = await sql.connect(config);
+        let results = await pool.request().input('email', sql.VarChar, email).execute('login');
+        const user = results.recordset[0]
 
          //ensure the user has entered an email address
         if (!email) {
@@ -71,9 +72,10 @@ exports.addUser = async (req, res) => {
                     { message: "Password must have small letters, caps and numbers" }
                 );
         } else if (user && user.is_deleted ===0) {
-            res.status(401)
-            .send({ message: "That email is already taken. Please use a different email" });
-        } 
+            res.status(401).send({ message: "That email is already taken. Please use a different email" });
+         }// else if(user && user.is_deleted ===1){
+        //     pool
+        // } 
     
         //Use bcrypt to hash the password and add the user to the users array
          else {
@@ -89,8 +91,15 @@ exports.addUser = async (req, res) => {
                 .execute('insertUser', (error, recordset) => {
                 if (error) {
                     res.status(500).send(error.message)
+                } else {
+                    jwt.sign({ email, username, name}, process.env.SECRET_KEY, (err, token) => {
+                        return res.status(201).json({
+                            user: {email, username, name},
+                            message: `${username} has been added successfully`,
+                            token
+                      });
+                    });
                 }   
-                res.status(201).send({ user, message: "user added successfully" });
             });
         }
         
@@ -105,17 +114,18 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
         //let users = `select * from users`;
         let pool = await sql.connect(config);
-        let results = await pool.request().execute('getAllUsers');
+        let results = await pool.request().input('email', sql.VarChar, email).execute('login');
 
-        const user = results.recordset.find((user) => user.email === email);
-        if (!user) {
+        const user = results.recordset[0];
+        console.log(user);
+        if (!user || user===undefined) {
             return res.status(401).send({ "message": "No such user exists" });
           } else {
             bcrypt.compare(password, user.password, (err, result) => {
               if (!result) {
                 return res.status(401).json({ message: "wrong password" });
               }
-              jwt.sign({ email: user.email, username: user.username, password: user.password }, process.env.SECRET_KEY, (err, token) => {
+              jwt.sign({ email: user.email, username: user.username, name: user.name }, process.env.SECRET_KEY, (err, token) => {
                   return res.status(200).json({
                     user,
                     message: `${user.username} has been logged in successfully`,
