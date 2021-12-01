@@ -5,10 +5,10 @@ const config = require('../config/db');
 
 exports.getProjects = async (req, res) => {
     try {
-        let query = `select * from projects`;
+        //let query = `select * from projects`;
         let pool = await sql.connect(config);
 
-        pool.request().query(query, (err, results) => {
+        pool.request().execute('getAllProjects', (err, results) => {
             if (err) {
                 console.log(err)
                 return res.status(400).send({message: "Oh, sorry, we appear to have a server error."});
@@ -20,17 +20,17 @@ exports.getProjects = async (req, res) => {
         })
         
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error.message)
     }
 }
 
 exports.getSingleProject = async (req, res) => {
     try {
         let id = parseInt(req.params.id);
-        let query = `select * from projects where project_id=${id}`;
+        //let query = `select * from projects where project_id=${id}`;
         let pool = await sql.connect(config);
 
-        pool.request().query(query, (err, results) => {
+        pool.request().input('id', sql.Int, id).execute('getSingleProject', (err, results) => {
             if (err) {
                 console.log(err)
                 return res.status(400).send({message: "Oh, sorry, we appear to have a server error."});
@@ -49,9 +49,10 @@ exports.getSingleProject = async (req, res) => {
 exports.addProject = async (req, res) => {
     try {
         const { project_name, project_description } = req.body;
-        let insertProject = `Insert into projects(project_name, project_description) Values('${project_name}', '${project_description}')`
+        //let insertProject = `Insert into projects(project_name, project_description) Values('${project_name}', '${project_description}')`
         let pool = await sql.connect(config);
-        pool.request().query(insertProject, (err, results) => {
+        pool.request().input('project_name', sql.VarChar, project_name).input('project_description', sql.VarChar, project_description)
+            .execute('addProject', (err, results) => {
             if (err) {
                 return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
             }
@@ -67,16 +68,21 @@ exports.updateProject = async (req, res) => {
     try {
         let id = parseInt(req.params.id);
         let pool = await sql.connect(config);
-        let query = `select * from projects where project_id=${id}`;
-        let project = (await pool.request().query(query)).recordset[0]
+        //let query = `select * from projects where project_id=${id}`;
+        let project = (await pool.request().input('id', sql.Int, id).execute('getSingleProject'
+        )).recordset[0]
         
         if (project) {
             let updated_project_name = req.body.project_name || project.project_name
             let updated_project_description = req.body.project_description || project.project_description
                     
-            let updateProject = `Update projects set project_name='${updated_project_name}', project_description='${updated_project_description}' where project_id=${id}`;
+            //let updateProject = `Update projects set project_name='${updated_project_name}', project_description='${updated_project_description}' where project_id=${id}`;
 
-            pool.request().query(updateProject, (err, results) => {
+            pool.request()
+                .input('id', sql.Int, id)
+                .input('project_name', sql.VarChar, updated_project_name)
+                .input('project_description', sql.VarChar, updated_project_description)
+                .execute('updateProject', (err, results) => {
                 if (err) {
                     console.log(err)
                     return res.status(500).send({message: "Oh, sorry, we appear to have a server error."})
@@ -95,9 +101,9 @@ exports.updateProject = async (req, res) => {
 exports.deleteProject = async (req, res) => {
     try {
         let id = parseInt(req.params.id)
-        let deleteProject = `delete from projects where project_id=${id}`
+        //let deleteProject = `delete from projects where project_id=${id}`
         let pool = await sql.connect(config);
-        pool.request().query(deleteProject, (err, results) => {
+        pool.request().input('id', sql.VarChar, id).execute('deleteProject', (err, results) => {
             if (err) {
                 console.log(err);
                 res.status(500).send({message: "Oh, sorry we could not delete that project for some strange reason"})
