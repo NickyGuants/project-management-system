@@ -36,6 +36,41 @@ exports.getSingleTask = async(req, res) => {
     }
 }
 
+exports.addTask = async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        const { task_name, task_description, is_complete, project_id } = req.body;
+
+        pool.request().execute('getAllProjects', (err, results) => {
+            if (err) {
+                res.status({message: "error occured on our side"})
+            }
+            let project = results.recordset.find(project => project.project_id === project_id)
+           // console.log(project)
+            if (project) {
+                pool.request()
+                .input('task_name', sql.VarChar, task_name)
+                .input('task_description', sql.VarChar, task_description)
+                .input('is_complete', sql.Bit, is_complete)
+                .input('project_id', sql.Int, project_id)
+                .execute('createTask', (err, results) => {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).send({message: "an error occured on our side"})
+                    }
+                    res.status(200).send({message: "task added sucessfully"})
+            })
+            } else {
+                res.status(400).send({message: "Invalid project id, that project does not exist."})
+            }
+        })
+
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error.message)
+    }
+}
 exports.updateTask = async (req, res) => {
     try {
         let pool = await sql.connect(config)
