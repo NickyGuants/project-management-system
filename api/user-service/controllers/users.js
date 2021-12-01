@@ -2,7 +2,7 @@ const sql = require('mssql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
+const lodash = require('lodash')
 const config = require('../config/db');
 
 exports.getUsers = async (req, res) => {
@@ -117,20 +117,25 @@ exports.login = async (req, res) => {
         let results = await pool.request().input('email', sql.VarChar, email).execute('login');
 
         const user = results.recordset[0];
-        console.log(user);
         if (!user || user===undefined) {
             return res.status(401).send({ "message": "No such user exists" });
           } else {
             bcrypt.compare(password, user.password, (err, result) => {
+                if (err) {
+                    res.status(500).send("An error occured")
+                }
               if (!result) {
                 return res.status(401).json({ message: "wrong password" });
               }
-              jwt.sign({ email: user.email, username: user.username, name: user.name }, process.env.SECRET_KEY, (err, token) => {
+                jwt.sign({ email: user.email, username: user.username, name: user.name }, process.env.SECRET_KEY, (err, token) => {
+                    if (err) {
+                      res.status(500).send("An error occured")
+                    }
+                    
                   return res.status(200).json({
-                    user,
+                    user:lodash.pick(user, ['username', 'email', 'name']),
                     message: `${user.username} has been logged in successfully`,
                     token
-
                 });
               });
             });
