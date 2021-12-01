@@ -1,0 +1,8 @@
+CREATE PROCEDURE getAllTasks AS
+BEGIN 
+SELECT * FROM dbo.tasks
+
+END
+GO
+
+EXEC getAllTasks
