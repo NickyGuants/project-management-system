@@ -104,3 +104,32 @@ exports.updateTask = async (req, res) => {
         res.status(500).send(err.message)
     }
 }
+
+exports.deleteTask = async (req, res) => {
+    try {
+        let pool = await sql.connect(config)
+        let id = parseInt(req.params.id)
+
+        pool.request().input('id', sql.Int, id).execute('getSingleTask', (err, results) => {
+            if (err) {
+                res.status(500).send({message: "an error occured on our side"})
+            }
+            let task = results.recordset[0]
+            if (task) {
+                pool.request()
+                .input('id', sql.Int, id)
+                .execute('deleteTask', (err, results) => {
+                    if (err) {
+                        res.status(500).send({ message: "an error occured on our side" })
+                    }
+                    res.status(201).send({message: "Task deleted successfully"})
+            })
+            } else {
+                res.send({message: "Task does not exist"})
+            }
+        })
+
+    } catch (error) {
+        res.status(500).send(err.message)
+    }
+}
