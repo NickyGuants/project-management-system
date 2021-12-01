@@ -2,6 +2,7 @@ const sql = require('mssql');
 const express = require('express');
 const config = require('./config/db');
 const projectRoutes = require('./routes/projectRouters');
+const taskRoutes = require('./routes/taskRoutes')
 
 const app = express();
 
@@ -14,6 +15,7 @@ sql.connect(config).then(pool => {
 }).catch(e => console.log(e));
 
 app.use('/projects', projectRoutes);
+app.use('/tasks', taskRoutes)
 
 
 
