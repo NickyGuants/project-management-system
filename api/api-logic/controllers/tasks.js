@@ -46,7 +46,6 @@ exports.addTask = async (req, res) => {
                 res.status({message: "error occured on our side"})
             }
             let project = results.recordset.find(project => project.project_id === project_id)
-           // console.log(project)
             if (project) {
                 pool.request()
                 .input('task_name', sql.VarChar, task_name)
@@ -55,7 +54,7 @@ exports.addTask = async (req, res) => {
                 .input('project_id', sql.Int, project_id)
                 .execute('createTask', (err, results) => {
                     if (err) {
-                        console.log(err)
+                       
                         res.status(500).send({message: "an error occured on our side"})
                     }
                     res.status(200).send({message: "task added sucessfully"})
@@ -67,7 +66,6 @@ exports.addTask = async (req, res) => {
 
         
     } catch (error) {
-        console.log(error)
         res.status(500).send(error.message)
     }
 }
