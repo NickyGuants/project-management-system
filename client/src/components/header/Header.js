@@ -15,7 +15,7 @@ const Header = () => {
 
     return (
         <header>
-            <div className="branding"><h1>User System</h1></div>
+            <div className="branding"><h1>Project Management System</h1></div>
             <div className="user">
                 {userInfo || userInfo1 ? (<Link to='login' onClick={logoutHandler}>Sign Out</Link>) :
                 <>    
