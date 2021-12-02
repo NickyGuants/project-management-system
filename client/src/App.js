@@ -13,6 +13,7 @@ import Settings from './pages/settings/Settings'
 
 function App() {
   return (
+    <div className="app">
     <Router>
       <Header />
       <div className="container">
@@ -29,7 +30,8 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </div>  
-    </Router>
+      </Router>
+      </div>
   );
 }
 
