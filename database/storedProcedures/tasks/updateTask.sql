@@ -4,4 +4,3 @@ Update tasks
 set task_description=@task_description, task_name=@task_name, is_complete=@is_complete where task_id=@id
 
 END
-GO
