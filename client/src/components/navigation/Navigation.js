@@ -5,12 +5,8 @@ import {Link} from "react-router-dom"
 const Navigation = () => {
     return (
         <div className="nav">
-            <div>
-                <h1>PMS</h1>
-            </div>
-
             <div className="nav-items">
-            <div>
+                <div>
                    <Link to="/"><h2>Home</h2></Link>
                 </div>
                 <div>
