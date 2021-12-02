@@ -1,10 +1,13 @@
 import React from 'react'
 import './dashboard.css'
+import Project from '../../components/project/Project'
+import Task from '../../components/task/Task'
 
 const Dashboard = () => {
     return (
         <div className="dashboard">
-            <h1>Dashboard</h1>
+            <Project />
+            <Task />
         </div>
     )
 }
