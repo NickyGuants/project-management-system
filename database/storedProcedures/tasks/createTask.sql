@@ -5,3 +5,4 @@ VALUES (@task_name, @task_description, @is_complete, @project_id)
 
 END
 GO
+EXEC createTask 'database design', 'Design the database', 0, 5;
