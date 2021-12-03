@@ -2,7 +2,7 @@ const sql = require('mssql');
 const express = require('express');
 const config = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
-const authRoutes = require('./routes/authRoutes')
+
 const app = express();
 
 app.use(express.json());
@@ -14,8 +14,7 @@ sql.connect(config).then(pool => {
 }).catch(e => console.log(e));
 
 
-app.use('/users',userRoutes);
-app.use('/auth',authRoutes)
+app.use('/users', userRoutes);
 
 
 app.listen(8001);
