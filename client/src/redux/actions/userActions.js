@@ -13,7 +13,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/login', { email, password }, config)
+        const { data } = await axios.post('http://localhost:8001/login', { email, password }, config)
         
         dispatch({
             type: Login.Success,
@@ -39,7 +39,7 @@ export const register = ( username, name, email, password ) => async (dispatch) 
             }
         }
 
-        const { data } = await axios.post('/signup', { username, name, email, password }, config)
+        const { data } = await axios.post('http://localhost:8001/signup', { username, name, email, password }, config)
         
         dispatch({
             type: Register.Success,
