@@ -15,3 +15,8 @@ export const GetProjects = {
     Success: "Project_Success",
     Fail: "Project_Fail"
 }
+export const GetTasks = {
+    Request: "Task_Request",
+    Success: "Task_Success",
+    Fail: "Task_Fail"
+}
