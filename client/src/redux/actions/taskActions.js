@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetTasks } from "../types";
 
-export const getProjects = () => async (dispatch) =>{
+export const getTasks = () => async (dispatch) =>{
     try {
         dispatch({
             type: GetTasks.Request
