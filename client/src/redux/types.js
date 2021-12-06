@@ -9,3 +9,9 @@ export const Login = {
     Fail: "LOGIN_FAIL"
 }
 export const USER_LOGOUT = "USER_LOGOUT"
+
+export const GetProjects = {
+    Request: "Project_Request",
+    Success: "Project_Success",
+    Fail: "Project_Fail"
+}
