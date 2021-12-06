@@ -15,7 +15,7 @@ sql.connect(config).then(pool => {
 
 
 app.use('/users',userRoutes);
-app.use('/auth',authRoutes)
+app.use('/',authRoutes)
 
 
 app.listen(8001);

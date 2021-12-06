@@ -6,7 +6,12 @@
   display: flex;
   margin-top: 0px;
 }
-
+.main{
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+  margin-left: 15px;
+}
 @media only screen and (max-width: 580px) {
   header {
     width: 100%;

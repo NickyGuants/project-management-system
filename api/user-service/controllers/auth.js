@@ -101,7 +101,7 @@ exports.login = async (req, res) => {
         let results = await pool.request().input('email', sql.VarChar, email).execute('login');
 
         const user = results.recordset[0];
-        if (!user || user===undefined) {
+        if (!user || user === undefined) {
             return res.status(401).send({ "message": "No such user exists" });
           } else {
             bcrypt.compare(password, user.password, (err, result) => {
@@ -125,6 +125,7 @@ exports.login = async (req, res) => {
             });
           }
     } catch (error) {
+        console.log(error)
         res.status(401).send(error.message)
     }
 }

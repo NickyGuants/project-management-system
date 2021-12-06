@@ -16,7 +16,7 @@ exports.protect = async (req, res, next) => {
                     if (err) {
                         res.status(500).send("Database error")
                     }
-                    
+    
                     res.locals.user = lodash.pick(results.recordset[0], ['username', 'email', 'name', 'is_admin'])
                     next()
                 }) 

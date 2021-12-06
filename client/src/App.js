@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/home/Home';
 import Header from './components/header/Header'
 import Register from './components/register/Register';
 import Login from './components/login/Login';
@@ -15,20 +14,22 @@ function App() {
   return (
     <div className="app">
     <Router>
-      <Header />
+      
       <div className="container">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Home />} exact />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/tasks" element={<Tasks />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/settings" element={<Settings/>} />
+          <Navigation />
+          <div className="main">
+          <Header />
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/settings" element={<Settings/>} />
 
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          </div>
       </div>  
       </Router>
       </div>

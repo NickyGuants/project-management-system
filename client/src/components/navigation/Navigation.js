@@ -7,9 +7,6 @@ const Navigation = () => {
         <div className="nav">
             <div className="nav-items">
                 <div>
-                   <Link to="/"><h2>Home</h2></Link>
-                </div>
-                <div>
                    <Link to="/dashboard"><h2>Dashboard</h2></Link>
                 </div>
 
@@ -18,8 +15,7 @@ const Navigation = () => {
                 </div>
 
                 <div>
-                <Link to="/tasks"><h2>Tasks</h2></Link>
-                    
+                <Link to="/tasks"><h2>Tasks</h2></Link> 
                 </div>
 
                 <div>
