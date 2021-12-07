@@ -1,4 +1,4 @@
-import { Login, Register, USER_LOGOUT } from '../types'
+import { GetUsers, Login, Register, USER_LOGOUT } from '../types'
 
 export const userLoginReducer = (state = {}, action) => {
     switch (action.type) {
@@ -34,6 +34,27 @@ export const userRegisterReducer = (state = {}, action) => {
                 userInfo: action.payload
             }
         case Register.Fail:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const getUsers = (state = {}, action) => {
+    switch (action.type) {
+        case GetUsers.Request:
+            return {
+                loading: true
+            }
+        case GetUsers.Success:
+            return {
+                loading: false,
+                users: action.payload
+            }
+        case GetUsers.Fail:
             return {
                 loading: false,
                 error: action.payload
