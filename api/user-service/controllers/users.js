@@ -1,6 +1,8 @@
 const sql = require('mssql');
+const { password } = require('../config/db');
 require('dotenv').config()
 const config = require('../config/db');
+const generateToken = require('../helpers/generateToken');
 
 exports.getUsers = async (req, res) => {
     try {
@@ -66,7 +68,12 @@ exports.updateUser = async(req, res) =>{
                         console.log(error)
                         res.status(500).send({message: "An error occurred"})
                     }
-                    res.status(201).send({ message: "user details updated" });
+                    res.status(201).send(
+                        {
+                            updated_user: updated_email, updated_name, updated_username,
+                            message: "user details updated"
+                        }
+                    );
             })
         }
         
@@ -92,3 +99,4 @@ exports.deleteUser = async (req, res) => {
         res.status(401).send(error.message)
     }
 }
+
