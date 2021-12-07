@@ -1,4 +1,4 @@
-import { Login, Register, USER_LOGOUT} from "../types";
+import { GetUsers, Login, Register, USER_LOGOUT} from "../types";
 import axios from 'axios'
 
 export const login = (email, password) => async (dispatch) => {
@@ -13,8 +13,8 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:8001/login', { email, password }, config)
-        
+        const { data }  = await axios.post('http://localhost:8001/login', { email, password }, config)
+
         dispatch({
             type: Login.Success,
             payload: data
@@ -57,4 +57,31 @@ export const logout = () => async (dispatch) => {
     dispatch({
         type: USER_LOGOUT
     })
+}
+
+export const getUsers = (token) => async (dispatch) => {
+    try {
+        dispatch({
+            type: GetUsers.Request
+        })
+
+        const config = {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }
+
+        const { data } = await axios.get('http://localhost:8001/users', config)
+      
+        
+        dispatch({
+            type: GetUsers.Success,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: GetUsers.Fail,
+            payload: error.response && error.response.data.message ? error.response.data.message: error.message
+        })
+    }
 }
