@@ -1,9 +1,10 @@
 const sql = require('mssql');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const lodash = require('lodash')
 const config = require('../config/db');
+const generateToken = require('../helpers/generateToken');
+const { password } = require('../config/db');
 
 exports.addUser = async (req, res) => {
     try {
@@ -77,13 +78,12 @@ exports.addUser = async (req, res) => {
                 if (error) {
                     res.status(500).send(error.message)
                 } else {
-                    jwt.sign({ email, username, name}, process.env.SECRET_KEY,{expiresIn: '1800s'}, (err, token) => {
-                        return res.status(201).json({
-                            user: {email, username, name},
-                            message: `${username} has been added successfully`,
-                            token
-                      });
-                    });
+                    console.log(generateToken(email, username, name))
+                    return res.status(201).json({
+                        user: {email, username, name},
+                        message: `${username} has been added successfully`,
+                        token: generateToken(email, username, name)
+                  });
                 }   
             });
         }
@@ -111,21 +111,48 @@ exports.login = async (req, res) => {
               if (!result) {
                 return res.status(401).json({ message: "wrong password" });
               }
-                jwt.sign({ email: user.email, username: user.username, name: user.name }, process.env.SECRET_KEY,{expiresIn: '1800s'}, (err, token) => {
-                    if (err) {
-                      res.status(500).send("An error occured")
-                    }
-                    
-                  return res.status(200).json({
-                    user:lodash.pick(user, ['username', 'email', 'name']),
-                    message: `${user.username} has been logged in successfully`,
-                    token
-                });
-              });
+              return res.status(200).json({
+                user:lodash.pick(user, ['username', 'email', 'name']),
+                message: `${user.username} has been logged in successfully`,
+                token: generateToken(user.email, user.username, user.name)
+            });
             });
           }
     } catch (error) {
         console.log(error)
+        res.status(401).send(error.message)
+    }
+}
+
+exports.resetPassword = async (req, res) => {
+    try {
+        let email = req.body.email
+        let updated_password = req.body.password
+        let confirm_password = req.body.confirm_password
+
+        if (!email) {
+            res.status(401).send({message: "You must provide an email"})
+        } else if (!updated_password) {
+            res.status(401).send({message: "Please enter your new password"})
+        } else if (!confirm_password) {
+            res.status(401).send({message: "Please confirm your new password"})
+        }
+        else if (updated_password !== confirm_password) {
+            res.status(400).send({message: "Passwords do not match"})
+        } else {
+            let pool = await sql.connect(config);
+            let results = await pool.request().input('email', sql.VarChar, email).execute('login');
+            const user = results.recordset[0]
+
+            if (user) {
+                const hashedPassword = await bcrypt.hash(updated_password, 10);
+                pool.request().query(`Update users set password='${hashedPassword}' where email='${email}'`)
+                res.status(200).send({message: "password has been successfully reset"})
+            }
+            
+        }
+
+    } catch (error) {
         res.status(401).send(error.message)
     }
 }
