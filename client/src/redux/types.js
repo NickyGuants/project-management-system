@@ -10,6 +10,12 @@ export const Login = {
 }
 export const USER_LOGOUT = "USER_LOGOUT"
 
+export const GetUsers = {
+    Request: "User_Request",
+    Success: "User_Success",
+    Fail: "User_Fail"
+}
+
 export const GetProjects = {
     Request: "Project_Request",
     Success: "Project_Success",
