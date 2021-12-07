@@ -1,3 +1,7 @@
 .users {
   flex: 4;
 }
+table {
+  width: 100%;
+  text-align: justify;
+}
