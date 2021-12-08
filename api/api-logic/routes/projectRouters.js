@@ -11,7 +11,7 @@ const {
 } = require("../controllers/projects");
 
 router.route("/").get(getProjects);
-router.route("/assigned").get(getAssignedProject);
+router.route("/assigned/:user_id").get(getAssignedProject);
 router.route("/:id").get(getSingleProject);
 router.route("/").post(addProject);
 router.route("/update/:id").put(updateProject);
