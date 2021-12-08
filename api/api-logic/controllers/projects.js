@@ -189,8 +189,9 @@ exports.assignProject = async (req, res) => {
 exports.getAssignedProject = async (req, res) => {
   try {
     let pool = await sql.connect(config);
-    const { user_id } = req.body;
+    const { user_id } = req.params;
 
+    console.log(user_id);
     pool
       .request()
       .input("user_id", sql.Int, user_id)
