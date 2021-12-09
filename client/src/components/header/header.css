@@ -2,7 +2,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgb(226, 226, 231);;
+  background-color: blue;
   height: 100px;
   align-items: center;
   border-radius: 10px;
@@ -16,11 +16,11 @@ header .user {
   margin-right: 10rem;
 }
 header a {
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 30px;
 }
 header h1 {
   color: black;
+  margin-left: 20px;
 }
-
