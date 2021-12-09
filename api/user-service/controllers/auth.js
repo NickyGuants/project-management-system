@@ -49,17 +49,13 @@ exports.addUser = async (req, res) => {
     }
     //Check that the password contain small letters, caps, and numbers
     else if (!capsAndNumber.test(password)) {
-      res
-        .status(401)
-        .send({
-          message: "Password must have small letters, caps and numbers",
-        });
+      res.status(401).send({
+        message: "Password must have small letters, caps and numbers",
+      });
     } else if (user && user.is_deleted === 0) {
-      res
-        .status(401)
-        .send({
-          message: "That email is already taken. Please use a different email",
-        });
+      res.status(401).send({
+        message: "That email is already taken. Please use a different email",
+      });
     } // else if(user && user.is_deleted ===1){
     //     pool
     // }
@@ -116,7 +112,13 @@ exports.login = async (req, res) => {
           return res.status(401).json({ message: "wrong password" });
         }
         return res.status(200).json({
-          user: lodash.pick(user, ["id", "username", "email", "name"]),
+          user: lodash.pick(user, [
+            "id",
+            "username",
+            "email",
+            "name",
+            "is_admin",
+          ]),
           message: `${user.username} has been logged in successfully`,
           token: generateToken(user.email, user.username, user.name),
         });
