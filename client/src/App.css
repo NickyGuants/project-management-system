@@ -1,12 +1,8 @@
-.app{
+.app {
   width: 75%;
   margin: 0 auto;
 }
-.container {
-  display: flex;
-  margin-top: 0px;
-}
-.main{
+.main {
   display: flex;
   flex-direction: column;
   flex: 4;
