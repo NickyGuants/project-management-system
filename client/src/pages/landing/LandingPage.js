@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <div>
       <Header />
-
+      <h1>Welcome to PMS</h1>
       <Outlet />
     </div>
   );

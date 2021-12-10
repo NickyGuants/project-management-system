@@ -19,7 +19,7 @@ exports.addUser = async (req, res) => {
     let results = await pool
       .request()
       .input("email", sql.VarChar, email)
-      .execute("login");
+      .execute("checkEmail");
     const user = results.recordset[0];
 
     //ensure the user has entered an email address
@@ -76,7 +76,6 @@ exports.addUser = async (req, res) => {
           if (error) {
             res.status(500).send(error.message);
           } else {
-            console.log(generateToken(email, username, name));
             return res.status(201).json({
               user: { email, username, name },
               message: `${username} has been added successfully`,
@@ -98,7 +97,7 @@ exports.login = async (req, res) => {
     let results = await pool
       .request()
       .input("email", sql.VarChar, email)
-      .execute("login");
+      .execute("checkEmail");
 
     const user = results.recordset[0];
     if (!user || user === undefined) {
@@ -149,7 +148,7 @@ exports.resetPassword = async (req, res) => {
       let results = await pool
         .request()
         .input("email", sql.VarChar, email)
-        .execute("login");
+        .execute("checkEmail");
       const user = results.recordset[0];
 
       if (user) {

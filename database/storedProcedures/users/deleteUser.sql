@@ -1,4 +1,4 @@
-ALTER PROCEDURE deleteUser(@id INT)
+CREATE OR ALTER PROCEDURE deleteUser(@id INT)
 As
 BEGIN
 

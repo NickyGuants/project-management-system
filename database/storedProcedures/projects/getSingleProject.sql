@@ -1,4 +1,4 @@
-CREATE PROCEDURE getSingleProject(@id INT) As 
+CREATE OR ALTER PROCEDURE getSingleProject(@id INT) As 
 BEGIN
     SELECT *
     FROM dbo.projects

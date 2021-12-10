@@ -1,8 +1,6 @@
-CREATE PROCEDURE getAllTasks AS
+CREATE OR ALTER PROCEDURE getAllTasks AS
 BEGIN 
 SELECT * FROM dbo.tasks
 
 END
 GO
-
-EXEC getAllTasks

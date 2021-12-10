@@ -55,13 +55,14 @@ exports.getSingleProject = async (req, res) => {
 
 exports.addProject = async (req, res) => {
   try {
-    const { project_name, project_description } = req.body;
+    const { project_name, project_description, due_date } = req.body;
     //let insertProject = `Insert into projects(project_name, project_description) Values('${project_name}', '${project_description}')`
     let pool = await sql.connect(config);
     pool
       .request()
       .input("project_name", sql.VarChar, project_name)
       .input("project_description", sql.VarChar, project_description)
+      .input("due_date", sql.Date, due_date)
       .execute("addProject", (err, results) => {
         if (err) {
           return res
@@ -88,6 +89,7 @@ exports.updateProject = async (req, res) => {
       let updated_project_name = req.body.project_name || project.project_name;
       let updated_project_description =
         req.body.project_description || project.project_description;
+      let updated_due_date = req.body.due_date || project.due_date;
 
       //let updateProject = `Update projects set project_name='${updated_project_name}', project_description='${updated_project_description}' where project_id=${id}`;
 
@@ -96,6 +98,7 @@ exports.updateProject = async (req, res) => {
         .input("id", sql.Int, id)
         .input("project_name", sql.VarChar, updated_project_name)
         .input("project_description", sql.VarChar, updated_project_description)
+        .input("due_date", sql.Date, updated_due_date)
         .execute("updateProject", (err, results) => {
           if (err) {
             console.log(err);

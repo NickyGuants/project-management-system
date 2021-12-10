@@ -5,7 +5,5 @@ CREATE TABLE [dbo].[tasks]
     [task_description] VARCHAR (500),
     [is_complete] [BIT] NOT NULL DEFAULT 0,
     [project_id] INT NOT NULL,
-    [user_id] INT NOT NULL,
     FOREIGN KEY (project_id) REFERENCES dbo.projects (project_id),
-    FOREIGN KEY (user_id) REFERENCES dbo.users (id)
 );

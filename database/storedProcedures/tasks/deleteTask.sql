@@ -1,4 +1,4 @@
-CREATE PROC deleteTask(@id INT) AS
+CREATE OR ALTER PROC deleteTask(@id INT) AS
 BEGIN
 delete from tasks where task_id=@id
 
