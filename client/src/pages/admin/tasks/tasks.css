@@ -1,21 +1,24 @@
 .tasks {
   flex: 4;
-  margin-left: 1rem;
-  margin-top: 10px;
+  margin: 0rem 1rem 1rem 1rem;
+  background-color: #7ec8e3;
+  border-radius: 0.7rem;
 }
 .task-header {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  color: black;
+  margin: 1rem 1rem 0rem 1rem;
 }
 .add-task-button {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: blue;
+  background-color: #0000ff;
   color: white;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
   width: 10vw;
   height: 5vh;
 }
@@ -23,6 +26,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 0rem 1rem 0rem 1rem;
 }
 table {
   width: 100%;
@@ -34,7 +38,9 @@ table {
   flex-direction: row;
   justify-content: space-between;
   margin: 0px 1rem 0px 1rem;
+  color: black;
 }
 .table-header td {
-  width: max-content;
+  width: 100%;
+  text-align: center;
 }

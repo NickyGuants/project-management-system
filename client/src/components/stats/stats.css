@@ -1,8 +1,8 @@
 .stats-card {
   display: flex;
   flex-direction: row;
-  width: 23%;
-  background-color: black;
+  width: 24%;
+  background-color: #000c66;
   color: white;
   margin-top: 1rem;
   padding: 2rem;

@@ -3,14 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(134, 130, 130);
+  background-color: #000c66;
   color: white;
   font-size: 24px;
-  height: 5vh;
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin: 0rem 1rem 1rem 1rem;
+  padding: 1rem;
 }
 .table-data td {
   margin: 0px 1rem 0px 1rem;
-  width: auto;
+  width: 20%;
+  text-align: center;
 }

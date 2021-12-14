@@ -3,6 +3,10 @@
   margin: 0;
 }
 .app {
-  width: 75%;
+  width: 80%;
   margin: 0 auto;
+  height: 100vh;
+}
+body {
+  background-color: #050a30;
 }

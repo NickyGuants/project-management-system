@@ -1,14 +1,15 @@
 .box-container {
   display: flex;
   flex-direction: row;
+  margin-top: 2rem;
 }
 .nav {
   flex: 1;
   height: min-content;
-  background-color: rgb(226, 226, 231);
   position: sticky;
-  border-radius: 5px;
-  margin-top: 10px;
+  border-radius: 0.7rem;
+  background-color: #7ec8e3;
+  height: 50vh;
 }
 
 .nav-items {

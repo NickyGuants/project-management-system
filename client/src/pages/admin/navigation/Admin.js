@@ -31,7 +31,7 @@ const Admin = () => {
           </div>
         </div>
       </div>
-      <Outlet />
+      <Outlet className="main" />
     </div>
   );
 };
