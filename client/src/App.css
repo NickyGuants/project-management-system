@@ -2,38 +2,3 @@
   width: 75%;
   margin: 0 auto;
 }
-.main {
-  display: flex;
-  flex-direction: column;
-  flex: 4;
-  margin-left: 15px;
-}
-@media only screen and (max-width: 580px) {
-  header {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .branding {
-    margin-left: 5px;
-  }
-  header .user {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 50%;
-    margin-right: 5px;
-    font-size: 25px;
-  }
-  header h1 {
-    font-size: 28px;
-  }
-  .form {
-    width: 90%;
-  }
-  header a {
-    font-size: 25px;
-  }
-}

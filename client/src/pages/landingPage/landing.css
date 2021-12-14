@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 30%;
+  margin: 0 auto;
+}
+.container a {
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 600;
+}

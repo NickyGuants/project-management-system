@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const Login = () => {
   let is_admin = userInfo?.user.is_admin;
 
   if (is_admin === true) {
-    navigate("/admin");
+    navigate("/admin/dashboard");
   }
   if (is_admin === false) {
     navigate("/dashboard");
