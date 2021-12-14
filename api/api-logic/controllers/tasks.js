@@ -55,7 +55,6 @@ exports.addTask = async (req, res) => {
           .request()
           .input("task_name", sql.VarChar, task_name)
           .input("task_description", sql.VarChar, task_description)
-          .input("is_complete", sql.Bit, is_complete)
           .input("project_id", sql.Int, project_id)
           .execute("createTask", (err, results) => {
             if (err) {
