@@ -1,0 +1,16 @@
+.table-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(134, 130, 130);
+  color: white;
+  font-size: 24px;
+  height: 5vh;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.table-data td {
+  margin: 0px 1rem 0px 1rem;
+  width: auto;
+}
