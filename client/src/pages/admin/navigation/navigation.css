@@ -10,12 +10,16 @@
   border-radius: 5px;
   margin-top: 10px;
 }
-.nav a {
-  text-decoration: none;
-  color: black;
-}
+
 .nav-items {
   display: flex;
   flex-direction: column;
   margin-left: 5px;
+}
+.nav-item {
+  margin: 2rem;
+}
+.nav-item a {
+  text-decoration: none;
+  color: black;
 }
