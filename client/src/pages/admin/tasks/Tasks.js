@@ -15,6 +15,8 @@ const Tasks = () => {
   const Alltasks = useSelector((state) => state.tasks);
   const { tasks } = Alltasks;
 
+  const completeTasks = tasks?.filter((task) => task.is_complete === true);
+
   useEffect(() => {
     dispatch(getTasks());
   }, [dispatch]);
@@ -29,8 +31,11 @@ const Tasks = () => {
       </div>
       <div className="stats-cards">
         <TasksStats title="All Tasks" amount={tasks?.length} />
-        <TasksStats title="Complete Tasks" amount={5} />
-        <TasksStats title="In Progress" amount={3} />
+        <TasksStats title="Complete Tasks" amount={completeTasks?.length} />
+        <TasksStats
+          title="In Progress"
+          amount={tasks?.length - completeTasks?.length}
+        />
         <TasksStats title="Unassigned" amount={2} />
       </div>
       <div className="tasks-table">
