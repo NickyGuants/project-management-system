@@ -1,26 +1,29 @@
 .box-container {
   display: flex;
   flex-direction: row;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 .nav {
-  flex: 1;
+  top: 0;
+  flex: 0.5;
   height: min-content;
   position: sticky;
   border-radius: 0.7rem;
-  background-color: #7ec8e3;
-  height: 50vh;
+  background-color: #000c66;
+  height: 100vh;
 }
 
 .nav-items {
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
 }
 .nav-item {
-  margin: 2rem;
+  margin: 1rem;
 }
 .nav-item a {
   text-decoration: none;
-  color: black;
+  color: white;
+}
+.main-page {
+  flex: 4;
 }

@@ -3,10 +3,10 @@
   margin: 0;
 }
 .app {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   height: 100vh;
 }
-body {
-  background-color: #050a30;
-}
+/* body {
+  background-color: black;
+} */

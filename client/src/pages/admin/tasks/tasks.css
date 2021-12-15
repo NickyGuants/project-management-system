@@ -1,6 +1,7 @@
 .tasks {
+  top: 2rem;
   flex: 4;
-  margin: 0rem 1rem 1rem 1rem;
+  margin: 0rem 0rem 1rem 1rem;
   background-color: #7ec8e3;
   border-radius: 0.7rem;
 }

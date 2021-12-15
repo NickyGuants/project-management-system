@@ -1,6 +1,7 @@
 import React from "react";
 import "./navigation.css";
 import { Link, Outlet } from "react-router-dom";
+import Header from "../../../components/header/Header";
 
 const Admin = () => {
   return (
@@ -31,7 +32,10 @@ const Admin = () => {
           </div>
         </div>
       </div>
-      <Outlet className="main" />
+      <div className="main-page">
+        <Header />
+        <Outlet />
+      </div>
     </div>
   );
 };
