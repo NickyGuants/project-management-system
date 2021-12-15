@@ -51,32 +51,36 @@ exports.addTask = async (req, res) => {
     let pool = await sql.connect(config);
     const { task_name, task_description, due_date, project_id } = req.body;
 
-    pool.request().execute("getAllProjects", (err, results) => {
-      if (err) {
-        res.status({ message: "error occured on our side" });
-      }
-      let project = results.recordset.find(
-        (project) => project.project_id === project_id
-      );
-      if (project) {
-        pool
-          .request()
-          .input("task_name", sql.VarChar, task_name)
-          .input("task_description", sql.VarChar, task_description)
-          .input("project_id", sql.Int, project_id)
-          .input("due_date", sql.Date, moment(due_date).format("YYYY-MM-DD"))
-          .execute("createTask", (err, results) => {
-            if (err) {
-              res.status(500).send({ message: "an error occured on our side" });
-            }
-            res.status(200).send({ message: "task added sucessfully" });
-          });
-      } else {
-        res.status(400).send({
-          message: "Invalid project id, that project does not exist.",
-        });
-      }
-    });
+    pool
+      .request()
+      .input("id", sql.Int, project_id)
+      .execute("getSingleProject", (err, results) => {
+        if (err) {
+          console.log(err);
+          res.status({ message: "error occured on our side" });
+        }
+        if (results.recordset[0].project_id === parseInt(project_id)) {
+          pool
+            .request()
+            .input("task_name", sql.VarChar, task_name)
+            .input("task_description", sql.VarChar, task_description)
+            .input("project_id", sql.Int, project_id)
+            .input("due_date", sql.Date, moment(due_date).format("YYYY-MM-DD"))
+            .execute("createTask", (err, results) => {
+              if (err) {
+                console.log(err);
+                res
+                  .status(500)
+                  .send({ message: "an error occured on our side" });
+              }
+              res.status(200).send({ message: "task added sucessfully" });
+            });
+        } else {
+          res
+            .status(406)
+            .send({ message: `Project ${project_id} does not exist` });
+        }
+      });
   } catch (error) {
     res.status(500).send(error.message);
   }
