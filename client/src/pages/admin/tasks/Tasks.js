@@ -19,7 +19,7 @@ const Tasks = () => {
 
   useEffect(() => {
     dispatch(getTasks());
-  }, [dispatch]);
+  }, [dispatch, modal]);
   return (
     <div className="tasks">
       <div className="task-header">
