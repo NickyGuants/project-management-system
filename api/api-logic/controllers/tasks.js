@@ -49,7 +49,7 @@ exports.getSingleTask = async (req, res) => {
 exports.addTask = async (req, res) => {
   try {
     let pool = await sql.connect(config);
-    const { task_name, task_description, is_complete, project_id } = req.body;
+    const { task_name, task_description, due_date, project_id } = req.body;
 
     pool.request().execute("getAllProjects", (err, results) => {
       if (err) {
@@ -64,6 +64,7 @@ exports.addTask = async (req, res) => {
           .input("task_name", sql.VarChar, task_name)
           .input("task_description", sql.VarChar, task_description)
           .input("project_id", sql.Int, project_id)
+          .input("due_date", sql.Date, moment(due_date).format("YYYY-MM-DD"))
           .execute("createTask", (err, results) => {
             if (err) {
               res.status(500).send({ message: "an error occured on our side" });
