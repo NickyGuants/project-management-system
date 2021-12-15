@@ -31,3 +31,9 @@ export const GetTasks = {
   Success: "Task_Success",
   Fail: "Task_Fail",
 };
+
+export const AddTask = {
+  Request: "Add_Task_Request",
+  Success: "Add_Task_Success",
+  Fail: "Add_Task_Fail",
+};
