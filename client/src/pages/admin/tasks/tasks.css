@@ -4,7 +4,7 @@
   margin: 0rem 0rem 1rem 1rem;
   background-color: #7ec8e3;
   border-radius: 0.7rem;
-  height: 86vh;
+  height: fit-content;
 }
 .task-header {
   display: flex;
@@ -17,7 +17,7 @@
 .add-task-button {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   background-color: #000c66;
   color: white;
   border-radius: 0.6rem;
@@ -36,34 +36,40 @@ table {
   margin-top: 2rem;
 }
 .table-header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0px 1rem 0px 1rem;
-  color: black;
+  top: 0;
+  position: sticky;
 }
-.table-header td {
-  width: 100%;
-  text-align: center;
-}
-
+.table-header,
 .table-data {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #000c66;
+  background-color: black;
   color: white;
   font-size: 24px;
   border-radius: 5px;
   margin: 0rem 1rem 1rem 1rem;
   padding: 1rem;
 }
+.table-header td {
+  width: 100%;
+  margin: 0px 0.5rem 0px 0rem;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.table-data {
+  background-color: #000c66;
+}
 .table-data td {
-  margin: 0px 1rem 0px 1rem;
-  width: 20%;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0px 0.5rem 0px 0rem;
 }
 
 .pagination {

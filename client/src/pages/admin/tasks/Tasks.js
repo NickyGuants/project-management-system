@@ -5,6 +5,8 @@ import CreateTaskModal from "./CreateTaskModal";
 import { getTasks } from "../../../redux/actions/taskActions";
 import "./tasks.css";
 import TablePagination from "@mui/material/TablePagination";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Tasks = () => {
   const [page, setPage] = React.useState(0);
@@ -36,7 +38,8 @@ const Tasks = () => {
       <div className="task-header">
         <h1>Tasks Overview</h1>
         <div className="add-task-button" onClick={() => Toggle()}>
-          <h3>Create New Task</h3>
+          <AddIcon />
+          <h3>Create Task</h3>
         </div>
         <CreateTaskModal show={modal} close={Toggle} />
       </div>
@@ -53,19 +56,24 @@ const Tasks = () => {
         <table>
           <thead>
             <tr className="table-header">
-              <td>
+              <td id="taskId">
                 <h3>Task Id</h3>
               </td>
-              <td>
+              <td id="name">
                 <h3>Task Name</h3>
               </td>
-              <td>
+              <td id="status">
                 <h3>Status</h3>
               </td>
-              <td>
+              <td id="due-date">
                 <h3>Due Date</h3>
               </td>
-              <td></td>
+              <td id="assignee">
+                <h3>Assignee</h3>
+              </td>
+              <td id="delete">
+                <h3>Delete</h3>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -73,11 +81,16 @@ const Tasks = () => {
               ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((task) => (
                 <tr key={task.task_id} className="table-data">
-                  <td>{task.task_id}</td>
+                  <td id="task-id">{task.task_id}</td>
                   <td>{task.task_name}</td>
-                  <td>{task.is_complete ? "Complete" : "In Progress"}</td>
-                  <td>{task.due_date}</td>
-                  <td>...</td>
+                  <td id="status">
+                    {task.is_complete ? "Complete" : "In Progress"}
+                  </td>
+                  <td id="date">{task.due_date}</td>
+                  <td id="assignee">Assignee</td>
+                  <td id="delete-icon">
+                    <DeleteIcon />
+                  </td>
                 </tr>
               ))}
           </tbody>
