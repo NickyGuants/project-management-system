@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TasksStats from "../../../components/stats/TasksStats";
-import Task from "../../../components/tasks/Task";
 import CreateTaskModal from "./CreateTaskModal";
 import { getTasks } from "../../../redux/actions/taskActions";
 import "./tasks.css";
+import TablePagination from "@mui/material/TablePagination";
 
 const Tasks = () => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const dispatch = useDispatch();
 
   const [modal, setModal] = useState(false);
@@ -58,9 +69,29 @@ const Tasks = () => {
             </tr>
           </thead>
           <tbody>
-            <Task />
+            {tasks
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((task) => (
+                <tr key={task.task_id} className="table-data">
+                  <td>{task.task_id}</td>
+                  <td>{task.task_name}</td>
+                  <td>{task.is_complete ? "Complete" : "In Progress"}</td>
+                  <td>{task.due_date}</td>
+                  <td>...</td>
+                </tr>
+              ))}
           </tbody>
         </table>
+        <TablePagination
+          className="pagination"
+          rowsPerPageOptions={[5, 10, 20]}
+          component="div"
+          count={tasks?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </div>
     </div>
   );

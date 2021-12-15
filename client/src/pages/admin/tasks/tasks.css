@@ -4,6 +4,7 @@
   margin: 0rem 0rem 1rem 1rem;
   background-color: #7ec8e3;
   border-radius: 0.7rem;
+  height: 86vh;
 }
 .task-header {
   display: flex;
@@ -17,11 +18,12 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: #0000ff;
+  background-color: #000c66;
   color: white;
   border-radius: 0.6rem;
   width: 10vw;
   height: 5vh;
+  margin: 1rem 1rem 0rem 1rem;
 }
 .stats-cards {
   display: flex;
@@ -44,4 +46,26 @@ table {
 .table-header td {
   width: 100%;
   text-align: center;
+}
+
+.table-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000c66;
+  color: white;
+  font-size: 24px;
+  border-radius: 5px;
+  margin: 0rem 1rem 1rem 1rem;
+  padding: 1rem;
+}
+.table-data td {
+  margin: 0px 1rem 0px 1rem;
+  width: 20%;
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 1rem;
 }
