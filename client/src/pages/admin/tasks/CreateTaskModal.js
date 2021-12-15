@@ -48,6 +48,10 @@ const CreateTaskModal = ({ show, close }) => {
                     placeholder="Enter task description"
                   ></textarea>
                 </div>
+                <div className="due-date">
+                  <label htmlFor="due_date">Due Date</label>
+                  <input type="Date" />
+                </div>
               </form>
             </main>
             <footer className="modal_footer">

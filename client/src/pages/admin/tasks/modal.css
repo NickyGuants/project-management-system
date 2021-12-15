@@ -30,7 +30,8 @@ form {
 
 .select,
 .task-name,
-.task-description {
+.task-description,
+.due-date {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

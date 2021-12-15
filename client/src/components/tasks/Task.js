@@ -20,7 +20,7 @@ const Task = () => {
           <td>{task.task_id}</td>
           <td>{task.task_name}</td>
           <td>{task.is_complete ? "Complete" : "In Progress"}</td>
-          <td>12-2-2022</td>
+          <td>{task.due_date}</td>
           <td>...</td>
         </tr>
       ))}
