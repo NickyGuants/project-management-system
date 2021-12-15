@@ -1,6 +1,7 @@
 const sql = require("mssql");
 require("dotenv").config();
 const config = require("../config/db");
+const moment = require("moment");
 
 exports.getAllTasks = async (req, res) => {
   try {
@@ -11,7 +12,14 @@ exports.getAllTasks = async (req, res) => {
         console.log(err);
         res.status(500).send({ message: "An error occurred on our side" });
       }
-      res.status(200).send(results.recordset);
+      res.status(200).send(
+        results.recordset.map((task) => {
+          return {
+            ...task,
+            due_date: moment(task.due_date).format("DD/MM/YYYY"),
+          };
+        })
+      );
     });
   } catch (error) {
     res.status(500).send(error.message);
