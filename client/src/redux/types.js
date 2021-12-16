@@ -37,3 +37,9 @@ export const AddTask = {
   Success: "Add_Task_Success",
   Fail: "Add_Task_Fail",
 };
+
+export const AddProject = {
+  Request: "Add_Project_Request",
+  Success: "Add_Project_Success",
+  Fail: "Add_Project_Fail",
+};

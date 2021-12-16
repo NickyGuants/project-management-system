@@ -4,7 +4,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
 } from "./userReducers";
-import { getAssignedProject, getProjects } from "./projectReducers";
+import { addProject, getAssignedProject, getProjects } from "./projectReducers";
 import { addTask, getTasks } from "./taskReducer";
 
 const rootreducer = combineReducers({
@@ -15,6 +15,7 @@ const rootreducer = combineReducers({
   users: getUsers,
   assignedProject: getAssignedProject,
   addTask: addTask,
+  addProject: addProject,
 });
 
 export default rootreducer;

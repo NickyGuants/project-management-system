@@ -35,24 +35,21 @@ table {
   width: 100%;
   margin-top: 2rem;
 }
-.table-header {
-  top: 0;
-  position: sticky;
-}
-.table-header,
+.project-table-header,
 .project-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  background-color: #000c66;
   color: white;
   font-size: 24px;
   border-radius: 5px;
   margin: 0rem 1rem 1rem 1rem;
   padding: 1rem;
 }
-.table-header td {
+.table-header,
+.project-table-header td {
   width: 100%;
   margin: 0px 0.5rem 0px 0rem;
   color: white;
@@ -70,6 +67,9 @@ table {
   justify-content: space-around;
   align-items: center;
   margin: 0px 0.5rem 0px 0rem;
+}
+#name {
+  width: 125%;
 }
 
 .pagination {

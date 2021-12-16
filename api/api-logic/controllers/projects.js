@@ -1,5 +1,6 @@
 const sql = require("mssql");
 require("dotenv").config();
+const moment = require("moment");
 
 const config = require("../config/db");
 
@@ -18,7 +19,14 @@ exports.getProjects = async (req, res) => {
       if (results.recordset.length === 0) {
         return res.status(406).send("No projects in the database");
       }
-      return res.status(201).send(results.recordset);
+      return res.status(201).send(
+        results.recordset.map((project) => {
+          return {
+            ...project,
+            due_date: moment(project.due_date).format("DD/MM/YYYY"),
+          };
+        })
+      );
     });
   } catch (error) {
     res.status(500).send(error.message);

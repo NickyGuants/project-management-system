@@ -38,7 +38,7 @@ const Projects = () => {
   return (
     <div className="projects">
       <div className="project-header">
-        <h1>Tasks Overview</h1>
+        <h1>Projects Overview</h1>
         <div className="add-project-button" onClick={() => Toggle()}>
           <AddIcon />
           <h3>Create Project</h3>
@@ -57,15 +57,15 @@ const Projects = () => {
       <div className="projects-table">
         <table>
           <thead>
-            <tr className="table-header">
+            <tr className="project-table-header">
               <td>
-                <h3>Task Id</h3>
+                <h3>Project Id</h3>
               </td>
               <td>
-                <h3>Task Name</h3>
+                <h3>Project Name</h3>
               </td>
               <td>
-                <h3>Status</h3>
+                <h3>Progress</h3>
               </td>
               <td>
                 <h3>Due Date</h3>
@@ -84,8 +84,8 @@ const Projects = () => {
               .map((project) => (
                 <tr key={project.project_id} className="project-row">
                   <td>{project.project_id}</td>
-                  <td>{project.project_name}</td>
-                  <td>{project.is_complete ? "Complete" : "In Progress"}</td>
+                  <td id="name">{project.project_name}</td>
+                  <td>{project.is_complete ? "Complete" : `In Progress`}</td>
                   <td>{project.due_date}</td>
                   <td>Assignee</td>
                   <td>

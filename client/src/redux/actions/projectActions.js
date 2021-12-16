@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetAssignedProject, GetProjects } from "../types";
+import { GetAssignedProject, GetProjects, AddProject } from "../types";
 
 export const getProjects = () => async (dispatch) => {
   try {
@@ -62,3 +62,37 @@ export const getAssignedProject = (user_id) => async (dispatch) => {
     });
   }
 };
+
+export const addProject =
+  (project_name, project_description, due_date) => async (dispatch) => {
+    try {
+      dispatch({
+        type: AddProject.Request,
+      });
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:8000/projects/",
+        { project_name, project_description, due_date },
+        config
+      );
+
+      dispatch({
+        type: AddProject.Success,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: AddProject.Fail,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

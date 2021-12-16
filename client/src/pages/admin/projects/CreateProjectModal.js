@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "../../../redux/actions/projectActions";
-import { addTask } from "../../../redux/actions/taskActions";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProject } from "../../../redux/actions/projectActions";
 import "./modal.css";
 
-const CreateTaskModal = ({ show, close }) => {
-  const [task_name, setTaskName] = useState("");
-  const [task_description, setDescription] = useState("");
+const CreateProjectModal = ({ show, close }) => {
+  const [project_name, setProjectName] = useState("");
+  const [project_description, setDescription] = useState("");
   const [due_date, setDueDate] = useState("");
-  const [project_id, setProjectId] = useState("");
 
   const dispatch = useDispatch();
 
-  const AllProjects = useSelector((state) => state.projects);
-  const { projects } = AllProjects;
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTask(task_name, task_description, due_date, project_id));
+    dispatch(addProject(project_name, project_description, due_date));
     close();
   };
-
-  useEffect(() => {
-    dispatch(getProjects());
-  }, [dispatch]);
 
   return (
     <>
@@ -35,42 +26,25 @@ const CreateTaskModal = ({ show, close }) => {
             </header>
             <main className="modal_content">
               <form onSubmit={handleSubmit}>
-                <div className="select">
-                  <label htmlFor="projects">Choose a Project</label>
-                  <select
-                    name="projects"
-                    id="projects"
-                    onChange={(e) => setProjectId(e.target.value)}
-                  >
-                    <option value="" selected>
-                      Choose Project
-                    </option>
-                    {projects?.map((project) => (
-                      <option value={project.project_id}>
-                        {project.project_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="task-name">
-                  <label htmlFor="task_name">Task Name</label>
+                <div className="project-name">
+                  <label htmlFor="task_name">Project Name</label>
                   <input
                     type="text"
-                    placeholder="Enter name of the Task"
-                    value={task_name}
-                    onChange={(e) => setTaskName(e.target.value)}
+                    placeholder="Enter name of the Project"
+                    value={project_name}
+                    onChange={(e) => setProjectName(e.target.value)}
                   />
                 </div>
 
-                <div className="task-description">
-                  <label htmlFor="task+description">Task Description</label>
+                <div className="project-description">
+                  <label htmlFor="project_description">Task Description</label>
                   <textarea
-                    name="task_description"
-                    value={task_description}
+                    name="project_description"
+                    value={project_description}
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="Enter task description"
+                    placeholder="Enter Project description"
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
@@ -100,4 +74,4 @@ const CreateTaskModal = ({ show, close }) => {
   );
 };
 
-export default CreateTaskModal;
+export default CreateProjectModal;
