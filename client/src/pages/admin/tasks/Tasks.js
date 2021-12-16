@@ -56,22 +56,22 @@ const Tasks = () => {
         <table>
           <thead>
             <tr className="table-header">
-              <td id="taskId">
+              <td>
                 <h3>Task Id</h3>
               </td>
-              <td id="name">
+              <td>
                 <h3>Task Name</h3>
               </td>
-              <td id="status">
+              <td>
                 <h3>Status</h3>
               </td>
-              <td id="due-date">
+              <td>
                 <h3>Due Date</h3>
               </td>
-              <td id="assignee">
+              <td>
                 <h3>Assignee</h3>
               </td>
-              <td id="delete">
+              <td>
                 <h3>Delete</h3>
               </td>
             </tr>
@@ -81,14 +81,12 @@ const Tasks = () => {
               ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((task) => (
                 <tr key={task.task_id} className="table-data">
-                  <td id="task-id">{task.task_id}</td>
+                  <td>{task.task_id}</td>
                   <td>{task.task_name}</td>
-                  <td id="status">
-                    {task.is_complete ? "Complete" : "In Progress"}
-                  </td>
-                  <td id="date">{task.due_date}</td>
-                  <td id="assignee">Assignee</td>
-                  <td id="delete-icon">
+                  <td>{task.is_complete ? "Complete" : "In Progress"}</td>
+                  <td>{task.due_date}</td>
+                  <td>Assignee</td>
+                  <td>
                     <DeleteIcon />
                   </td>
                 </tr>

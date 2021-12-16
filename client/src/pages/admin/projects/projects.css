@@ -65,9 +65,7 @@ table {
   justify-content: space-around;
   align-items: center;
   margin: 0px 0.5rem 0px 0rem;
-}
-#name {
-  width: 125%;
+  color: black;
 }
 
 .pagination {
