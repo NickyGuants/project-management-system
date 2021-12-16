@@ -31,9 +31,10 @@
   justify-content: space-between;
   margin: 0rem 1rem 0rem 1rem;
 }
-table {
-  width: 100%;
-  margin-top: 2rem;
+.tasks-table {
+  width: 98%;
+  margin: 0 auto;
+  margin-top: 0rem;
 }
 .table-header,
 .table-data {
