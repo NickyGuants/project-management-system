@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TasksStats from "../../../components/stats/TasksStats";
+import Stats from "../../../components/stats/Stats";
 import CreateTaskModal from "./CreateTaskModal";
 import { getTasks } from "../../../redux/actions/taskActions";
 import "./tasks.css";
@@ -44,13 +44,13 @@ const Tasks = () => {
         <CreateTaskModal show={modal} close={Toggle} />
       </div>
       <div className="stats-cards">
-        <TasksStats title="All Tasks" amount={tasks?.length} />
-        <TasksStats title="Complete Tasks" amount={completeTasks?.length} />
-        <TasksStats
+        <Stats title="All Tasks" amount={tasks?.length} />
+        <Stats title="Complete Tasks" amount={completeTasks?.length} />
+        <Stats
           title="In Progress"
           amount={tasks?.length - completeTasks?.length}
         />
-        <TasksStats title="Unassigned" amount={2} />
+        <Stats title="Unassigned" amount={2} />
       </div>
       <div className="tasks-table">
         <table>

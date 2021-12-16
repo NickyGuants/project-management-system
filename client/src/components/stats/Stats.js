@@ -1,7 +1,7 @@
 import React from "react";
 import "./stats.css";
 
-const TasksStats = (props) => {
+const Stats = (props) => {
   return (
     <div className="stats-card">
       <div className="stats">
@@ -12,4 +12,4 @@ const TasksStats = (props) => {
   );
 };
 
-export default TasksStats;
+export default Stats;

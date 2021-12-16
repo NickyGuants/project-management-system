@@ -1,0 +1,71 @@
+.modalContainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #050a30;
+  opacity: 0.9;
+}
+
+.modal {
+  width: 60vw;
+  background-color: #000c66;
+  padding: 2rem;
+  border-radius: 10px;
+  color: black;
+}
+.modal-header h2 {
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+.select,
+.task-name,
+.task-description,
+.due-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0.6rem;
+}
+label {
+  font-weight: bold;
+  margin-left: 2rem;
+}
+
+select,
+textarea,
+input {
+  width: 75%;
+  padding: 0.5rem;
+}
+
+footer {
+  padding: 2rem 0;
+  padding-bottom: 0;
+}
+footer button {
+  float: right;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.modal-close {
+  background-color: #0000ff;
+  font-weight: 600;
+  color: white;
+}
+.submit {
+  margin-right: 1rem;
+  background-color: #0000ff;
+  color: #fff;
+}

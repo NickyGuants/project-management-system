@@ -1,3 +1,77 @@
 .projects {
+  top: 2rem;
   flex: 4;
+  margin: 0rem 0rem 1rem 1rem;
+  background-color: #d7e4e9;
+  border-radius: 0.7rem;
+  height: fit-content;
+}
+.project-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  margin: 1rem 1rem 0rem 1rem;
+}
+.add-project-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #000c66;
+  color: white;
+  border-radius: 0.6rem;
+  width: 10vw;
+  height: 5vh;
+  margin: 1rem 1rem 0rem 1rem;
+}
+.stats-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0rem 1rem 0rem 1rem;
+}
+table {
+  width: 100%;
+  margin-top: 2rem;
+}
+.table-header {
+  top: 0;
+  position: sticky;
+}
+.table-header,
+.project-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  border-radius: 5px;
+  margin: 0rem 1rem 1rem 1rem;
+  padding: 1rem;
+}
+.table-header td {
+  width: 100%;
+  margin: 0px 0.5rem 0px 0rem;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.project-row {
+  background-color: #000c66;
+}
+.project-row td {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0px 0.5rem 0px 0rem;
+}
+
+.pagination {
+  margin-top: 1rem;
 }
