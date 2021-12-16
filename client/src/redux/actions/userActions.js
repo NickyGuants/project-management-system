@@ -77,19 +77,19 @@ export const logout = () => async (dispatch) => {
   });
 };
 
-export const getUsers = (token) => async (dispatch) => {
+export const getUsers = () => async (dispatch) => {
   try {
     dispatch({
       type: GetUsers.Request,
     });
 
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     authorization: `Bearer ${token}`,
+    //   },
+    // };
 
-    const { data } = await axios.get("http://localhost:8001/users", config);
+    const { data } = await axios.get("http://localhost:8001/users");
 
     dispatch({
       type: GetUsers.Success,

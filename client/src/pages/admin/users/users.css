@@ -1,3 +1,33 @@
 .users {
+  top: 0;
   flex: 4;
+  margin: 1rem 0rem 1rem 1rem;
+  height: fit-content;
+}
+table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  background-color: #e5ecee;
+}
+.user-table-header,
+.user-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 1rem 1rem 1rem;
+  background-color: white;
+}
+.user-table-header {
+  margin-bottom: 0rem;
+}
+td {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
 }
