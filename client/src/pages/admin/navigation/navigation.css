@@ -9,7 +9,7 @@
   height: min-content;
   position: sticky;
   border-radius: 0.7rem;
-  background-color: #000c66;
+  background-color: black;
   height: 100vh;
 }
 
@@ -18,11 +18,19 @@
   flex-direction: column;
 }
 .nav-item {
-  margin: 1rem;
+  margin: 2rem 0rem 2rem 0rem;
 }
 .nav-item a {
   text-decoration: none;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 95%;
+  margin: 0 auto;
+}
+.nav-item a h2 {
+  margin-left: 0.5rem;
 }
 .main-page {
   flex: 4;
