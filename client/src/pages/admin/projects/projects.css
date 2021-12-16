@@ -41,25 +41,23 @@ table {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #000c66;
-  color: white;
+  /* background-color: #000c66; */
+  color: black;
   font-size: 24px;
   border-radius: 5px;
   margin: 0rem 1rem 1rem 1rem;
   padding: 1rem;
+  border-bottom: 1px solid black;
 }
 .table-header,
 .project-table-header td {
   width: 100%;
   margin: 0px 0.5rem 0px 0rem;
-  color: white;
+  color: black;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-.project-row {
-  background-color: #000c66;
 }
 .project-row td {
   width: 100%;
